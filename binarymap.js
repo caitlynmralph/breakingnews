@@ -3,8 +3,8 @@ var margin = { top: 50, right: 0, bottom: 100, left: 30 },
     height = 936 - margin.top - margin.bottom,
     gridSize = Math.floor(width / 15),
     legendElementWidth = gridSize*3,
-    buckets = 2,
-    colors = ["black","white"]; // alternatively colorbrewer.YlGnBu[9]
+    buckets1 = 2,
+    colors1 = ["black","white"]; // alternatively colorbrewer.YlGnBu[9]
     topics = ["wiretap","russia_investigation","media_attacks","empty_positions","secret_waivers","nunes_recuses",
     "tillerson_limited_media","ivanka_employee","flynn_immunity","sessions_recuses","pruitt_EPA","two_state_solution",
     "russia_relations_switch","american_healthcare_act","non-nuclear_bomb_afghanistan","nato_switch","aggressive_north_korea",
@@ -13,13 +13,13 @@ var margin = { top: 50, right: 0, bottom: 100, left: 30 },
     outlets = ["CNN","Fox","NYT","Wapo","WSJ","USA"];
     datasets = ["data.csv"];
 
-var svg = d3.select("#chart").append("svg")
+var svg1 = d3.select("#chart1").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var topicLabels = svg.selectAll(".topicLabel")
+var topicLabels = svg1.selectAll(".topicLabel")
     .data(topics)
     .enter().append("text")
       .text(function (d) { return d; })
@@ -29,7 +29,7 @@ var topicLabels = svg.selectAll(".topicLabel")
       .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
       .attr("class", "topicLabel axis");
 
-var outletLabels = svg.selectAll(".outletLabel")
+var outletLabels = svg1.selectAll(".outletLabel")
     .data(outlets)
     .enter().append("text")
       .text(function(d) { return d; })
@@ -39,7 +39,7 @@ var outletLabels = svg.selectAll(".outletLabel")
       .attr("transform", "translate(" + gridSize / 2 + ", -6)")
       .attr("class", "outletLabel axis");
 
-var heatmapChart = function(csvFile) {
+var binaryChart = function(csvFile) {
   d3.csv(csvFile,
   function(d) {
     return {
@@ -50,10 +50,10 @@ var heatmapChart = function(csvFile) {
   },
   function(error, data) {
     var colorScale = d3.scale.quantile()
-        .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })])
-        .range(colors);
+        .domain([0, buckets1 - 1, d3.max(data, function (d) { return d.value; })])
+        .range(colors1);
 
-    var cards = svg.selectAll(".hour")
+    var cards = svg1.selectAll(".hour")
         .data(data, function(d) {return d.topic+':'+d.outlet;});
 
     cards.append("title");
@@ -75,21 +75,21 @@ var heatmapChart = function(csvFile) {
           }
         });
 
-    var legend = svg.selectAll(".legend")
+    var legend1 = svg1.selectAll(".legend")
         .data([0].concat(colorScale.quantiles()), function(d) { return d; });
 
-    legend.enter().append("g")
+    legend1.enter().append("g")
         .attr("class", "legend");
 
-    legend.append("rect")
+    legend1.append("rect")
       .attr("x", function(d, i) { return legendElementWidth * i; })
       .attr("y", height)
       .attr("width", legendElementWidth)
       .attr("height", gridSize / 2)
       .attr("class","bordered")
-      .style("fill", function(d, i) { return colors[i]; });
+      .style("fill", function(d, i) { return colors1[i]; });
 
-    legend.append("text")
+    legend1.append("text")
       .attr("class", "axis")
       .text(function(d) {
         console.log(d)
@@ -105,4 +105,4 @@ var heatmapChart = function(csvFile) {
   });
 };
 
-heatmapChart(datasets[0]);
+binaryChart(datasets[0]);
