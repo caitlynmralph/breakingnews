@@ -130,6 +130,32 @@
   font-stretch: normal;
 }
 
+.top-title {
+  font-family: 'Canela';
+  font-size: 45px;
+  font-weight: 300;
+  text-align: left;
+  line-height: 0px;
+  /* background-color: white; */
+  /* width: 400px; */
+  /* margin: auto; */
+  /* margin-bottom: 55px; */
+  /* box-shadow: 2px 2px 7px 0px grey; */
+}
+
+.chart-title{
+  font-family: 'Canela';
+  font-size: 27px;
+  font-weight: lighter;
+  text-align: left;
+  color: #000000;
+  /*border-bottom: 1px solid #cacaca;
+  padding-bottom: 5px;*/
+  width: 1000px;
+  margin-bottom: 0px;
+  line-height: 29px;
+}
+
 rect.bordered {
   stroke: #E6E6E6;
   stroke-width: 1px;
@@ -142,7 +168,7 @@ text.axis {
 }
 
 legend {
-  
+
 }
 
 svg {
