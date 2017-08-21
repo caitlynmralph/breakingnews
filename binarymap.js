@@ -49,7 +49,7 @@ var binaryChart = function(csvFile) {
     };
   },
   function(error, data) {
-    var colorScale = d3.scale.quantile()
+    var colorScale = d3.scaleQuantile()
         .domain([0, buckets1 - 1, d3.max(data, function (d) { return d.value; })])
         .range(colors1);
 
